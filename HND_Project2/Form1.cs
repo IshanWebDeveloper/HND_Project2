@@ -46,8 +46,48 @@ namespace HND_Project2
         {
             try
             {
+                string sex;
+
                 con.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Emp_Table VALUES(@eNo,@eName, @Category )", con);
+                SqlCommand command = new SqlCommand("INSERT INTO Emp_Table VALUES(@eNo,@eName, @Category,@dob, @Gender, @Salary )", con);
+                command.Parameters.AddWithValue("@eNO", eNo.Text);
+                command.Parameters.AddWithValue("@eName", eName.Text);
+                command.Parameters.AddWithValue("@Category", category.Text);
+                command.Parameters.AddWithValue("@dob", dob.Value);
+                command.Parameters.AddWithValue("@Salary", salary.Text);
+                if (male.Checked) sex = "M"; else sex = "F";
+                command.Parameters.AddWithValue("@Gender", sex);
+                command.ExecuteNonQuery();
+                MessageBox.Show("New Record Added", "Database Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                form_clear();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+        }
+
+        private void edit_Employee()
+        {
+            try
+            {
+                string sex;
+
+                con.Open();
+                SqlCommand command = new SqlCommand("UPDATE Employee SET EmpName=@Name, EmpCategory=@Category,EmpDob = @Dob, EmpGender=@Gender, EmpSalary=@Salary WHERE EmpNO=@eNo )", con);
+                command.Parameters.AddWithValue("@eNO", eNo.Text);
+                command.Parameters.AddWithValue("@eName", eName.Text);
+                command.Parameters.AddWithValue("@Category", category.Text);
+                command.Parameters.AddWithValue("@dob", dob.Value);
+                command.Parameters.AddWithValue("@Salary", salary.Text);
+                if (male.Checked) sex = "M"; else sex = "F";
+                command.Parameters.AddWithValue("@Gender", sex);
+                command.ExecuteNonQuery();
+                MessageBox.Show("New Record Added", "Database Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                form_clear();
+                con.Close();
             }
             catch (Exception)
             {
