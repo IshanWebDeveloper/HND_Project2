@@ -13,9 +13,6 @@ namespace HND_Project2
         SqlConnection con = new SqlConnection(con_string);
         public Form1()
         {
-
-
-
             InitializeComponent();
             fillComboBox();
         }
@@ -49,7 +46,7 @@ namespace HND_Project2
                 string sex;
 
                 con.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Emp_Table VALUES(@eNo,@eName, @Category,@dob, @Gender, @Salary )", con);
+                SqlCommand command = new SqlCommand("INSERT INTO Employee VALUES(@eNo,@eName, @Category,@dob, @Gender, @Salary )", con);
                 command.Parameters.AddWithValue("@eNO", eNo.Text);
                 command.Parameters.AddWithValue("@eName", eName.Text);
                 command.Parameters.AddWithValue("@Category", category.Text);
@@ -65,7 +62,7 @@ namespace HND_Project2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                throw;
+
             }
         }
 
@@ -85,14 +82,54 @@ namespace HND_Project2
                 if (male.Checked) sex = "M"; else sex = "F";
                 command.Parameters.AddWithValue("@Gender", sex);
                 command.ExecuteNonQuery();
-                MessageBox.Show("New Record Added", "Database Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Record updated", "Database Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 form_clear();
                 con.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void load_employye()
+        {
+            try
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Employee WHERE EmpNo=@eNo", con);
+                command.Parameters.AddWithValue("@eNo", eNo.Text);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    eName.Text = reader[0].ToString();
+                    category.Text = reader[2].ToString();
+                    dob.Text = reader[3].ToString();
+                    if (reader[4].Equals("M"))
+                    {
+                        male.Checked = false;
+                    }
+                    else
+                    {
+                        female.Checked = true;
+
+                    }
+                    salary.Text = reader[5].ToString();
+                    addBtn.Text = "Edit";
+                    con.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Employee Not Found");
+
+                }
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -104,6 +141,28 @@ namespace HND_Project2
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void eNo_Leave(object sender, EventArgs e)
+        {
+            load_employye();
+        }
+
+        private void clearBtn_Click(object sender, EventArgs e)
+        {
+            form_clear();
+        }
+
+        private void addBtn_Click(object sender, EventArgs e)
+        {
+            if (addBtn.Text == "Add")
+            {
+                addEmployee();
+            }
+            else
+            {
+                edit_Employee();
+            }
         }
     }
 }

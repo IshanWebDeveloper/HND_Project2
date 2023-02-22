@@ -39,8 +39,8 @@
             this.category = new System.Windows.Forms.ComboBox();
             this.dob = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.male = new System.Windows.Forms.RadioButton();
             this.female = new System.Windows.Forms.RadioButton();
+            this.male = new System.Windows.Forms.RadioButton();
             this.salary = new System.Windows.Forms.TextBox();
             this.addBtn = new System.Windows.Forms.Button();
             this.clearBtn = new System.Windows.Forms.Button();
@@ -108,6 +108,7 @@
             this.eNo.Name = "eNo";
             this.eNo.Size = new System.Drawing.Size(100, 22);
             this.eNo.TabIndex = 6;
+            this.eNo.Leave += new System.EventHandler(this.eNo_Leave);
             // 
             // eName
             // 
@@ -142,17 +143,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // male
-            // 
-            this.male.AutoSize = true;
-            this.male.Location = new System.Drawing.Point(19, 8);
-            this.male.Name = "male";
-            this.male.Size = new System.Drawing.Size(58, 20);
-            this.male.TabIndex = 0;
-            this.male.TabStop = true;
-            this.male.Text = "Male";
-            this.male.UseVisualStyleBackColor = true;
-            // 
             // female
             // 
             this.female.AutoSize = true;
@@ -163,6 +153,17 @@
             this.female.TabStop = true;
             this.female.Text = "Female";
             this.female.UseVisualStyleBackColor = true;
+            // 
+            // male
+            // 
+            this.male.AutoSize = true;
+            this.male.Location = new System.Drawing.Point(19, 8);
+            this.male.Name = "male";
+            this.male.Size = new System.Drawing.Size(58, 20);
+            this.male.TabIndex = 0;
+            this.male.TabStop = true;
+            this.male.Text = "Male";
+            this.male.UseVisualStyleBackColor = true;
             // 
             // salary
             // 
@@ -179,6 +180,7 @@
             this.addBtn.TabIndex = 12;
             this.addBtn.Text = "Add";
             this.addBtn.UseVisualStyleBackColor = true;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // clearBtn
             // 
@@ -188,6 +190,7 @@
             this.clearBtn.TabIndex = 13;
             this.clearBtn.Text = "Clear";
             this.clearBtn.UseVisualStyleBackColor = true;
+            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
             // 
             // Form1
             // 
